@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
+
+type CollectionType = {
+  title: string;
+  _id: string;
+}
 
 function App() {
   const [title, setTitle] = useState("");
+  const [collections, setCollections] = useState<CollectionType[]>([]);
 
   async function handleCreateCollection(e: React.FormEvent) {
     e.preventDefault();
@@ -18,9 +24,26 @@ function App() {
     setTitle("");
   }
 
+  useEffect(() => {
+    async function fetchCollections() {
+      const response = await fetch("http://localhost:5000/collections");
+      const newCollections = await response.json();
+      setCollections(newCollections);
+    }
+    fetchCollections();
+  }, [])
+
   return (
     <div className="App">
-      <form onSubmit={handleCreateCollection}>
+      <ul className="collections">
+        {collections.map((item) => (
+          <li key={item._id}>
+            {item.title}
+          </li>
+        ))}
+      </ul>
+
+      <form className='collection-form' onSubmit={handleCreateCollection}>
         <label htmlFor="collection-title">Collection Title</label>
         <input 
           id="collection-title" 

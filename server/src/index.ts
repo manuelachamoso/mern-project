@@ -13,6 +13,11 @@ app.use(cors({
 }));
 app.use(express.json())
 
+app.get('/collections', async (req: Request, res: Response) => {
+    const collections = await Collection.find({});
+    res.json(collections);
+})
+
 app.post('/collections', async (req: Request, res: Response) => {
     console.log(req.body);
     const newCollection = new Collection({ 
