@@ -1,21 +1,25 @@
 import { config } from 'dotenv';
 import express, { Request, Response } from 'express';
 import mongoose from'mongoose';
-import Deck from './models/Deck';
+import Collection from './models/Collection';
+import cors from 'cors';
 config();
 
 const PORT = 5000;
 const app = express();
 
+app.use(cors({
+    origin: '*',
+}));
 app.use(express.json())
 
-app.post('/decks', async (req: Request, res: Response) => {
+app.post('/collections', async (req: Request, res: Response) => {
     console.log(req.body);
-    const newDeck = new Deck({ 
+    const newCollection = new Collection({ 
         title: req.body.title, 
     });
-    const createdDeck = await newDeck.save();
-    res.json(createdDeck);
+    const createdCollection = await newCollection.save();
+    res.json(createdCollection);
 })
 
 mongoose.connect(process.env.MONGO_URL!).then(() => {
