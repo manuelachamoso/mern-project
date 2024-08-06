@@ -27,6 +27,13 @@ app.post('/collections', async (req: Request, res: Response) => {
     res.json(createdCollection);
 })
 
+app.delete('/collections/:collectionId', async (req: Request, res: Response) => {
+    const collectionId = req.params.collectionId;
+    const collection = await Collection.findByIdAndDelete(collectionId);
+
+    res.json(collection)
+})
+
 mongoose.connect(process.env.MONGO_URL!).then(() => {
     console.log('Connected to MongoDB');
     app.listen(PORT);

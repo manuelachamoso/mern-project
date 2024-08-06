@@ -12,7 +12,7 @@ function App() {
 
   async function handleCreateCollection(e: React.FormEvent) {
     e.preventDefault();
-    await fetch("http://localhost:5000/collections", {
+    const response = await fetch("http://localhost:5000/collections", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21,7 +21,16 @@ function App() {
         title
       }),
     });
+    const collection = await response.json();
+    setCollections([...collections, collection]);
     setTitle("");
+  }
+
+  async function handleDeleteCollection(collectionId: string) {
+    await fetch(`http://localhost:5000/collections/${collectionId}`, {
+      method: 'DELETE',
+    });
+    setCollections(collections.filter((collection) => collection._id!== collectionId));
   }
 
   useEffect(() => {
@@ -37,7 +46,8 @@ function App() {
     <div className="App">
       <ul className="collections">
         {collections.map((item) => (
-          <li key={item._id}>
+          <li className="collections-item" key={item._id}>
+            <button className="collection-delete" onClick={() => handleDeleteCollection(item._id)}>X</button>
             {item.title}
           </li>
         ))}

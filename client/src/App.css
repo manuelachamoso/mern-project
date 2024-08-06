@@ -26,7 +26,7 @@
   grid-gap: 15px;
 }
 
-.collections li {
+.collections-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,9 +34,25 @@
   background: white;
   bottom: 1px solid white;
   border-radius: 20px;
+  font-size: 20px;
+  position: relative;
 }
 
-.collections li:hover {
+.collections-item:hover {
   background: #ffc8dd;
   cursor: pointer;
+}
+
+.collection-delete {
+  position: absolute;
+  font-size: 12px;
+  top: 5px;
+  right: 5px;
+  border: none; 
+  background: transparent; 
+  cursor: pointer;
+}
+
+.collection-delete:hover {
+  color: white;
 }
