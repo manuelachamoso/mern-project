@@ -1,9 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import { useParams } from 'react-router-dom';
+import { CollectionType } from './api/getCollections';
+import { createCard } from './api/createCard';
+import { getCollection } from './api/getCollection';
+import { deleteCard } from './api/deleteCard';
 
-const Collection = () => {
+function Collection() {
+  const [collection, setCollection] = useState<CollectionType | undefined>();
+  const [cards, setCards] = useState<string[]>([]);
+  const [text, setText] = useState("");
+  const { collectionId } = useParams();
+
+
+  async function handleCreateCollection(e: React.FormEvent) {
+    e.preventDefault();
+    const { cards: serverCards } = await createCard(collectionId!, text);
+    setCards(serverCards)
+    setText("");
+  }
+
+  async function handleDeleteCard(index: number) {
+    if (!collectionId) return;
+    const newCollection = await deleteCard(collectionId, index)
+    setCards(newCollection.cards);
+  }
+
+  useEffect(() => {
+    async function fetchCollection() {
+      if (!collectionId) return;
+
+      const newCollection = await getCollection(collectionId);
+      setCollection(newCollection);
+      setCards(newCollection.cards);
+    }
+    fetchCollection();
+  }, [collectionId])
+
+  
   return (
-    <div>Collection of all the collections goes here</div>
-  )
+    <div className="Collection">
+      <h1>{collection?.title}</h1>
+      <ul className="cards">
+        {cards.map((card, index) => (
+          <li key={index}>
+            <button onClick={() => handleDeleteCard(index)}>X</button>
+            {card}
+          </li>
+        ))}
+      </ul>
+      <form onSubmit={handleCreateCollection}>
+        <label htmlFor="card-text">Card Text</label>
+        <input
+          id="card-text"
+          value={text}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setText(e.target.value);
+          }}
+        />
+        <button>Create Card</button>
+      </form>
+    </div>
+  );
 }
 
 export default Collection

@@ -11,9 +11,13 @@ function App() {
 
   async function handleCreateCollection(e: React.FormEvent) {
     e.preventDefault();
-    const collection = await createCollection(title);
-    setCollections([...collections, collection]);
-    setTitle("");
+    try {
+      const collection = await createCollection(title);
+      setCollections(prevCollections => [...prevCollections, collection]);
+      setTitle("");
+    } catch (error) {
+      console.error('Failed to create collection:', error);
+    }
   }
 
   async function handleDeleteCollection(collectionId: string) {

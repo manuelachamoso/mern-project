@@ -3,6 +3,7 @@ import { API_URL } from "./config";
 export type CollectionType = {
   title: string;
   _id: string;
+  cards: string[];
 }
 
 export async function getCollections(): Promise<CollectionType[]> {
