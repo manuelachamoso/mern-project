@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './App.css'
+import './Collection.css'
 import { useParams } from 'react-router-dom';
 import { CollectionType } from './api/getCollections';
 import { createCard } from './api/createCard';
@@ -43,13 +43,13 @@ function Collection() {
       <h1>{collection?.title}</h1>
       <ul className="cards">
         {cards.map((card, index) => (
-          <li key={index}>
-            <button onClick={() => handleDeleteCard(index)}>X</button>
-            {card}
+          <li className='cards-item' key={index}>
+            <button className='cards-delete' onClick={() => handleDeleteCard(index)}>X</button>
+            <p className='cards-title'>{card}</p>
           </li>
         ))}
       </ul>
-      <form onSubmit={handleCreateCollection}>
+      <form className='cards-form' onSubmit={handleCreateCollection}>
         <label htmlFor="card-text">Card Text</label>
         <input
           id="card-text"

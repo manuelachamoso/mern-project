@@ -1,0 +1,32 @@
+.Header {
+  background-color: #242424; 
+  padding: 1rem 2rem;
+  color: #ffffff;
+  width: 100%;
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  z-index: 1000; 
+}
+
+.Header .container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  max-width: 1280px; 
+  margin: 0 auto; 
+  width: 100%; 
+}
+.Header a {
+  color: #ffffff; 
+  text-decoration: none;
+  font-size: 1.2rem; 
+}
+
+.Header a:hover {
+  color: #ffafcc; 
+}
+
+.Header a.active {
+  color: #812245; 
+}

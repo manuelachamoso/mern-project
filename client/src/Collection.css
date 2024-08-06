@@ -4,20 +4,20 @@
   text-align: center;
 }
 
-.App {
+.Collection {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.collection-form {
+.cards-form {
   display: flex;
   gap: 10px;
   justify-content: center;
   align-items: center;
 }
 
-.collections {
+.cards {
   display: grid;
   width: 650px;
   margin: 0 auto;
@@ -25,7 +25,7 @@
   grid-gap: 15px;
 }
 
-.collections-item {
+.cards-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,16 +36,16 @@
   position: relative;
 }
 
-.collections-item:hover {
+.cards-item:hover {
   background: #ffc8dd;
   cursor: pointer;
 
-  .collection-title {
+  .cards-title, .cards-delete {
     color: #812245;
   }
 }
 
-.collection-delete {
+.cards-delete {
   position: absolute;
   font-size: 12px;
   top: 5px;
@@ -53,13 +53,12 @@
   border: none; 
   background: transparent; 
   cursor: pointer;
+  color: #ffafcc;
 }
 
-.collection-delete:hover {
-  color: white;
-}
 
-.collection-title {
+
+.cards-title {
   font-size: 20px;
   color: #ffafcc;
 }

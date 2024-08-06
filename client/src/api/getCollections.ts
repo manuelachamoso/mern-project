@@ -7,6 +7,6 @@ export type CollectionType = {
 }
 
 export async function getCollections(): Promise<CollectionType[]> {
-  const response = await fetch(`${API_URL}/collections"`);
+  const response = await fetch(`${API_URL}/collections`);
   return response.json();
 }
