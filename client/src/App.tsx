@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
-
-type CollectionType = {
-  title: string;
-  _id: string;
-}
+import { Link } from 'react-router-dom';
+import { deleteCollections } from './api/deleteCollections';
+import { CollectionType, getCollections } from './api/getCollections';
+import { createCollection } from './api/createCollections';
 
 function App() {
   const [title, setTitle] = useState("");
@@ -12,31 +11,19 @@ function App() {
 
   async function handleCreateCollection(e: React.FormEvent) {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/collections", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },  
-      body: JSON.stringify({ 
-        title
-      }),
-    });
-    const collection = await response.json();
+    const collection = await createCollection(title);
     setCollections([...collections, collection]);
     setTitle("");
   }
 
   async function handleDeleteCollection(collectionId: string) {
-    await fetch(`http://localhost:5000/collections/${collectionId}`, {
-      method: 'DELETE',
-    });
+    await deleteCollections(collectionId)
     setCollections(collections.filter((collection) => collection._id!== collectionId));
   }
 
   useEffect(() => {
     async function fetchCollections() {
-      const response = await fetch("http://localhost:5000/collections");
-      const newCollections = await response.json();
+      const newCollections = await getCollections();
       setCollections(newCollections);
     }
     fetchCollections();
@@ -48,15 +35,15 @@ function App() {
         {collections.map((item) => (
           <li className="collections-item" key={item._id}>
             <button className="collection-delete" onClick={() => handleDeleteCollection(item._id)}>X</button>
-            {item.title}
+            <Link className='collection-title' to={`collections/${item._id}`}>{item.title}</Link>
           </li>
         ))}
       </ul>
 
       <form className='collection-form' onSubmit={handleCreateCollection}>
-        <label htmlFor="collection-title">Collection Title</label>
+        <label htmlFor="collection-input">Collection Title</label>
         <input 
-          id="collection-title" 
+          id="collection-input" 
           value={title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setTitle(e.target.value);

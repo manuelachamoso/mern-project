@@ -34,13 +34,16 @@
   background: white;
   bottom: 1px solid white;
   border-radius: 20px;
-  font-size: 20px;
   position: relative;
 }
 
 .collections-item:hover {
   background: #ffc8dd;
   cursor: pointer;
+
+  .collection-title {
+    color: #812245;
+  }
 }
 
 .collection-delete {
@@ -55,4 +58,9 @@
 
 .collection-delete:hover {
   color: white;
+}
+
+.collection-title {
+  font-size: 20px;
+  color: #ffafcc;
 }
