@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Collection.css'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CollectionType } from './api/getCollections';
 import { createCard } from './api/createCard';
 import { getCollection } from './api/getCollection';
@@ -16,6 +16,7 @@ function Collection() {
   async function handleCreateCollection(e: React.FormEvent) {
     e.preventDefault();
     const { cards: serverCards } = await createCard(collectionId!, text);
+    console.log('Created card:', serverCards);
     setCards(serverCards)
     setText("");
   }
@@ -40,6 +41,7 @@ function Collection() {
   
   return (
     <div className="Collection">
+      <Link to="/" className='collection-back'>Back</Link>
       <h1>{collection?.title}</h1>
       <ul className="cards">
         {cards.map((card, index) => (

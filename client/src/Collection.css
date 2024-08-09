@@ -56,9 +56,20 @@
   color: #ffafcc;
 }
 
-
-
 .cards-title {
   font-size: 20px;
   color: #ffafcc;
+}
+
+.collection-back {
+  border: 1px solid #812245;
+  color: #812245;
+  width: 20%;
+  border-radius: 20px;
+  padding: 5px 0px;
+}
+
+.collection-back:hover {
+  color: white;
+  border: 1px solid white;
 }
